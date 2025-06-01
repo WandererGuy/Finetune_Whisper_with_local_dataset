@@ -1,0 +1,7 @@
+env
+infer_env
+misc
+test.py
+test_erax_ai.py
+checkpoint-openai-whisper-small
+test_data

@@ -1,0 +1,3 @@
+audio,sentence
+/home/manh264/code_linux/Finetune_Whisper_translation/test_data/common_voice_de_17300032.mp3.wav,"hello world"
+/home/manh264/code_linux/Finetune_Whisper_translation/test_data/common_voice_vi_24396623.mp3,"how are you?"
