@@ -26,9 +26,6 @@ PRETRAIN_MODEL = "openai/whisper-small"
 # PRETRAIN_MODEL = "erax-ai/EraX-WoW-Turbo-V1.1-CT2"
 # PRETRAIN_MODEL = "vinai/PhoWhisper-small"
 
-
-
-
 OUTPUT_DIR_NAME = "checkpoint-" + PRETRAIN_MODEL.replace("/", "-")
 LANGUAGE_WHISPER = "Vietnamese"
 MODEL_GENERATION_CONFIG_LANGUAGE = "vietnamese"

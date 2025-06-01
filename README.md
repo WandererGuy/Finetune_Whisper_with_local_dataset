@@ -18,13 +18,23 @@ pip install -U openai-whisper
 
 # prepare local dataset 
 ## prepare local dataset 
-you need to prepare a train dataset and a validation dataset. 
-which means, you should prepare a train_csv and val_csv like in samples in ./sample_dataset which i already prepared
-(example: the dataset i prepared is vietnamese ASR)
-notice #1: sentence in each line is covered in "" so that csv reading wont fail
-notice #2: each audio under audio column in your csv must be a 16k Hz + mono channel + wav file because that is audio type which whisper finetune need, so make sure to convert your audio file before any finetuning
+- you need to prepare a train dataset and a validation dataset. <br>
+which means, you should prepare a train_csv and val_csv like in samples in ./sample_dataset which i already prepared <br>
+(example: the dataset i prepared is vietnamese ASR) <br>
+- notice #1: sentence in each line is covered in "" so that csv reading wont fail
+- notice #2: each audio under audio column in your csv must be a 16k Hz + mono channel + wav file . <br>
+Because that is audio type which whisper finetune need, so make sure to convert your audio file before any finetuning <br>
 i already prepare a file show how to convert your audio in ./0_wav_convert.py
 # finetune pretrained whisper 
-in 1_finetune_whisper.py, replace train_csv_path and test_csv_path with your own path to train csv and validation csv 
-
+- in 1_finetune_whisper.py, replace train_csv_path and test_csv_path with your own path to train csv and validation csv, which you prepared in previous step
+- you need to change some values for whisper to work to your case <br>
+In script ./1_finetune_whisper.py, you need to<br>
+fix MODEL_GENERATION_CONFIG_LANGUAGE to your wanted finetune language (tag name must be available by whisper)<br>
+fix LANGUAGE_WHISPER to your wanted finetune language (tag name must be available by whisper)<br>
+u need a pretrained whisper model from huggingface to finetune, after select one, please fix PRETRAIN_MODEL
+- run
+```
+python 1_finetune_whisper.py
+```
+- the checkpoint and logs will be saved in OUTPUT_DIR_NAME, specified in script ./1_finetune_whisper.py
 # inference pretrained whisper
