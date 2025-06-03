@@ -46,7 +46,6 @@ python 2_inference_single.py
 
 
 # other tutorial 
-https://medium.com/@shridharpawar77/a-comprehensive-guide-for-custom-data-fine-tuning-with-the-whisper-model-60e4cbce736d
-https://huggingface.co/blog/fine-tune-whisper
-
-wer calculation: https://huggingface.co/learn/audio-course/en/chapter5/evaluation
+- https://medium.com/@shridharpawar77/a-comprehensive-guide-for-custom-data-fine-tuning-with-the-whisper-model-60e4cbce736d
+- https://huggingface.co/blog/fine-tune-whisper
+- wer calculation: https://huggingface.co/learn/audio-course/en/chapter5/evaluation
