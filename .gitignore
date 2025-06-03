@@ -5,3 +5,9 @@ test.py
 test_erax_ai.py
 checkpoint-openai-whisper-small
 test_data
+checkpoint-openai-whisper-small-en-vi
+checkpoint-openai-whisper-small-hre-vi
+checkpoint-vinai-PhoWhisper-small
+/input_wav
+translated_output.csv
+translated_output.txt

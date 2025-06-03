@@ -22,9 +22,9 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Union
 from transformers import Seq2SeqTrainingArguments
 
-PRETRAIN_MODEL = "openai/whisper-small"
+# PRETRAIN_MODEL = "openai/whisper-small"
 # PRETRAIN_MODEL = "erax-ai/EraX-WoW-Turbo-V1.1-CT2"
-# PRETRAIN_MODEL = "vinai/PhoWhisper-small"
+PRETRAIN_MODEL = "vinai/PhoWhisper-small"
 
 OUTPUT_DIR_NAME = "checkpoint-" + PRETRAIN_MODEL.replace("/", "-")
 LANGUAGE_WHISPER = "Vietnamese"
@@ -133,10 +133,11 @@ def load_dataset_from_local_files(train_csv_path, test_csv_path):
 
 
 if __name__ == "__main__":
-        train_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/train_linux.csv"
-        test_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/val_linux.csv"
-        # train_csv_path = "/mnt/d/WORK/Speech2text_dan_toc/train_linux.csv"
-        # test_csv_path = "/mnt/d/WORK/Speech2text_dan_toc/val_linux.csv"
+        # train_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/train_linux.csv"
+        # test_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/val_linux.csv"
+        train_csv_path = "/mnt/d/WORK/dan_toc_projects/en_vn_dataset/train_linux.csv"
+        test_csv_path = "/mnt/d/WORK/dan_toc_projects/en_vn_dataset/val_linux.csv"
+
 
         train_dataset, test_dataset = load_dataset_from_local_files(train_csv_path, test_csv_path)
         from datasets import Dataset
@@ -222,6 +223,11 @@ if __name__ == "__main__":
             push_to_hub=False,
         )
 
+        # solve issue https://discuss.huggingface.co/t/tokenizer-not-created-when-training-whisper-small-model/61876/2
+        # https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb#scrollTo=uOrRhDGtN5S4
+        # We'll save the processor object once before starting training. Since the processor is not trainable, it won't change over the course of training:
+        processor.save_pretrained(training_args.output_dir)
+
         from transformers import Seq2SeqTrainer
 
         trainer = Seq2SeqTrainer(
@@ -235,9 +241,4 @@ if __name__ == "__main__":
         )
         logger.info("start training")
         trainer.train()
-
-        # from transformers import WhisperForConditionalGeneration, WhisperProcessor
-
-        # model = WhisperForConditionalGeneration.from_pretrained("sanchit-gandhi/whisper-small-hi")
-        # processor = WhisperProcessor.from_pretrained("sanchit-gandhi/whisper-small-hi")
 

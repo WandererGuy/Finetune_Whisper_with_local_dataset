@@ -1,9 +1,9 @@
 Finetune whisper with local dataset 
-unlike many tutorial online which shows dataset loaded from huggingface, this repo shows another alternative to use dataset from your own computer to finetune and inference
-
+- unlike many tutorial online which shows dataset loaded from huggingface, this repo shows another alternative to use dataset from your own computer to finetune and inference
+- u can use trained whisper for speech to text recogntion , or even speech to text translation (which i found as emergent property of whisper, eg: finetune on pairs of English audio and Vietnamese sentence, let task (in finetune and inference) still be transcribe not translate)
 # preparation enivironment
 - you will need 2 environments , one for finetune , one for inference because there are many conflict in dependency
-- notice that whisper is built on 3.9 python in author's repo
+- notice that whisper is built on 3.9 python like inn author's repo
 ## finetune env:
 ```
 python==3.9 
@@ -38,3 +38,15 @@ python 1_finetune_whisper.py
 ```
 - the checkpoint and logs will be saved in OUTPUT_DIR_NAME, specified in script ./1_finetune_whisper.py
 # inference pretrained whisper
+change variable : laguage , original_audio in python 2_inference.py to your preference
+run 
+```
+python 2_inference_single.py
+```
+
+
+# other tutorial 
+https://medium.com/@shridharpawar77/a-comprehensive-guide-for-custom-data-fine-tuning-with-the-whisper-model-60e4cbce736d
+https://huggingface.co/blog/fine-tune-whisper
+
+wer calculation: https://huggingface.co/learn/audio-course/en/chapter5/evaluation
