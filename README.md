@@ -2,15 +2,16 @@ Finetune whisper with local dataset
 - unlike many tutorial online which shows dataset loaded from huggingface, this repo shows another alternative to use dataset from your own computer to finetune and inference
 - u can use trained whisper for speech to text recogntion , or even speech to text translation (which i found as emergent property of whisper, eg: finetune on pairs of English audio and Vietnamese sentence, let task (in finetune and inference) still be transcribe not translate)
 # preparation enivironment
-- you will need 2 environments , one for finetune , one for inference because there are many conflict in dependency
-- notice that whisper is built on 3.9 python like inn author's repo
-## finetune env:
+- you will need 1 environments for both finetune and inference 
+- in case inference cant be ran you can install a new env only for inference with instruction below 
+- notice: in my env, whisper is built on 3.9 python like in Whisper's original repo 
+## finetune + infer env:
 ```
 python==3.9 
 pip install --upgrade pip
 pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
 ```
-## infer env:
+## infer env (Optional for inference only, if above env fail)
 ```
 python==3.9
 pip install -U openai-whisper

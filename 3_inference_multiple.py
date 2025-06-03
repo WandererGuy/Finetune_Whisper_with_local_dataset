@@ -53,7 +53,11 @@ pipe = pipeline(
 input_wav_folder = "input_wav"
 if not os.path.exists(input_wav_folder):
     os.makedirs(input_wav_folder)
-a = "/mnt/d/WORK/dan_toc_projects/en_vn_dataset/test_linux.csv"
+
+
+
+    
+a = "/mnt/d/WORK/dan_toc_projects/en_vn_dataset/val_linux.csv"
 dest_filepath = "translated_output.txt"
 with open(dest_filepath, "w") as f:
     pass
@@ -79,8 +83,6 @@ for idx, row in df.iterrows():
         })
     except Exception as e:
         continue 
-    if idx == 10:
-        break
     # dest_file = open(dest_filepath, "a")
     # dest_file.write("----------------------------\n")
     # dest_file.write(f"Original Audio: \n{original_audio}\n")
