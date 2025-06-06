@@ -6,10 +6,19 @@ Finetune whisper with local dataset
 - in case inference cant be ran you can install a new env only for inference with instruction below 
 - notice: in my env, whisper is built on 3.9 python like in Whisper's original repo 
 ## finetune + infer env:
+linux
 ```
 python==3.9 
 pip install --upgrade pip
 pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
+```
+window
+linux
+```
+python==3.9 
+pip install --upgrade pip
+pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
+pip install aiohttp==3.8.3
 ```
 ## infer env (Optional for inference only, if above env fail)
 ```
