@@ -13,8 +13,11 @@ for idx, row in df.iterrows():
 
     reference = row["original_sentence"]
     prediction = row["translated_text"]
-    normalized_prediction = normalizer(prediction)
-    normalized_referece = normalizer(reference)
+    # normalized_prediction = normalizer(prediction)
+    # normalized_referece = normalizer(reference)
+    normalized_prediction = prediction
+    normalized_referece = reference
+
     wer = wer_metric.compute(
         references=[normalized_referece], predictions=[normalized_prediction]
     )

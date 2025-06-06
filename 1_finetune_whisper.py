@@ -22,16 +22,16 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Union
 from transformers import Seq2SeqTrainingArguments
 
-# PRETRAIN_MODEL = "openai/whisper-small"
+PRETRAIN_MODEL = "openai/whisper-small"
 # PRETRAIN_MODEL = "erax-ai/EraX-WoW-Turbo-V1.1-CT2"
-PRETRAIN_MODEL = "vinai/PhoWhisper-small"
+# PRETRAIN_MODEL = "vinai/PhoWhisper-small"
 
 OUTPUT_DIR_NAME = "checkpoint-" + PRETRAIN_MODEL.replace("/", "-")
 LANGUAGE_WHISPER = "Vietnamese"
 MODEL_GENERATION_CONFIG_LANGUAGE = "vietnamese"
 MODEL_TASK = "transcribe"
 
-
+MAX_STEPS = 20000
  
 
 class DataCollatorSpeechSeq2SeqWithPadding:
@@ -135,8 +135,8 @@ def load_dataset_from_local_files(train_csv_path, test_csv_path):
 if __name__ == "__main__":
         # train_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/train_linux.csv"
         # test_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/val_linux.csv"
-        train_csv_path = "/mnt/d/WORK/dan_toc_projects/en_vn_dataset/train_linux.csv"
-        test_csv_path = "/mnt/d/WORK/dan_toc_projects/en_vn_dataset/val_linux.csv"
+        train_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset/train_linux.csv"
+        test_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset/val_linux.csv"
 
 
         train_dataset, test_dataset = load_dataset_from_local_files(train_csv_path, test_csv_path)
@@ -206,7 +206,7 @@ if __name__ == "__main__":
             gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
             learning_rate=1e-5,
             warmup_steps=500,
-            max_steps=5000,
+            max_steps=MAX_STEPS,
             gradient_checkpointing=True,
             fp16=True,
             eval_strategy="steps",

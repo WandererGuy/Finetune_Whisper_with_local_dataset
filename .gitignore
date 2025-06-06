@@ -11,3 +11,5 @@ checkpoint-vinai-PhoWhisper-small
 /input_wav
 translated_output.csv
 translated_output.txt
+/checkpoint-openai-whisper-small-en-vi-20k
+/checkpoint-openai-whisper-small-en-vi-5k
