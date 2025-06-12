@@ -18,8 +18,11 @@ linux
 python==3.9 
 pip install --upgrade pip
 pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
-pip install aiohttp==3.8.3
+pip install aiohttp==3.8.3q1
 ```
+also, on window, you need to install pytorch from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/ compatible for your cuda version
+
+
 ## infer env (Optional for inference only, if above env fail)
 ```
 python==3.9

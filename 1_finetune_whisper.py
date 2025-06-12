@@ -135,8 +135,8 @@ def load_dataset_from_local_files(train_csv_path, test_csv_path):
 if __name__ == "__main__":
         # train_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/train_linux.csv"
         # test_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/val_linux.csv"
-        train_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset/train_linux.csv"
-        test_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset/val_linux.csv"
+        train_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset_v2/train_linux.csv"
+        test_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset_v2/val_linux.csv"
 
 
         train_dataset, test_dataset = load_dataset_from_local_files(train_csv_path, test_csv_path)
