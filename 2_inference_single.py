@@ -35,7 +35,7 @@ model.to(device)
 
 import os 
 processodr_model_id = os.path.dirname(model_id)
-processor = AutoProcessor.from_pretrained(model_id)
+processor = AutoProcessor.from_pretrained(processodr_model_id)
 
 pipe = pipeline(
     "automatic-speech-recognition",
