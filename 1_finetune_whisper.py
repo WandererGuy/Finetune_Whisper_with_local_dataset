@@ -4,6 +4,15 @@ from transformers import WhisperTokenizer
 from transformers import WhisperProcessor
 from datasets import Audio
 from transformers import WhisperForConditionalGeneration
+import random
+import numpy as np
+import torch
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+torch.cuda.manual_seed_all(SEED)
 
 import logging
 
@@ -131,12 +140,13 @@ def load_dataset_from_local_files(train_csv_path, test_csv_path):
     """
     return train_dataset, test_dataset
 
+from transformers import WhisperConfig, WhisperForConditionalGeneration
 
 if __name__ == "__main__":
         # train_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/train_linux.csv"
         # test_csv_path = "/mnt/d/WORK/dan_toc_projects/Speech_dan_toc_crawl/val_linux.csv"
-        train_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset_v2/train_linux.csv"
-        test_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_dataset_v2/val_linux.csv"
+        train_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_STTT_dataset_v2/train_linux.csv"
+        test_csv_path = "/mnt/d/WORK/dan_toc_projects/khm_vn_STTT_dataset_v2/val_linux.csv"
 
 
         train_dataset, test_dataset = load_dataset_from_local_files(train_csv_path, test_csv_path)
@@ -187,7 +197,20 @@ if __name__ == "__main__":
         train_dataset = train_dataset.map(prepare_dataset, num_proc=1)
         test_dataset = test_dataset.map(prepare_dataset, num_proc=1)
 
-        model = WhisperForConditionalGeneration.from_pretrained(PRETRAIN_MODEL)
+
+        # 3. **NEW**: load config with SpecAugment turned on
+        config = WhisperConfig.from_pretrained(
+            PRETRAIN_MODEL,
+            apply_spec_augment=True
+        )
+
+        # 4. Instantiate model with that config
+        model = WhisperForConditionalGeneration.from_pretrained(
+            PRETRAIN_MODEL,
+            config=config
+        )
+
+        # model = WhisperForConditionalGeneration.from_pretrained(PRETRAIN_MODEL)
         model.generation_config.language = MODEL_GENERATION_CONFIG_LANGUAGE
         model.generation_config.task = MODEL_TASK
 
