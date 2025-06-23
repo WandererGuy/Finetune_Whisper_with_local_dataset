@@ -4,7 +4,16 @@ from transformers import WhisperTokenizer
 from transformers import WhisperProcessor
 from datasets import Audio
 from transformers import WhisperForConditionalGeneration
+from transformers import WhisperConfig, WhisperForConditionalGeneration
+import random
+import numpy as np
+import torch
 
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+torch.cuda.manual_seed_all(SEED)
 import logging
 
 # 1. Configure the root logger
@@ -22,7 +31,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Union
 from transformers import Seq2SeqTrainingArguments
 
-PRETRAIN_MODEL = "openai/whisper-medium"
+PRETRAIN_MODEL = "openai/whisper-large-v3-turbo"
 # PRETRAIN_MODEL = "erax-ai/EraX-WoW-Turbo-V1.1-CT2"
 # PRETRAIN_MODEL = "vinai/PhoWhisper-small"
 
@@ -186,8 +195,19 @@ if __name__ == "__main__":
         test_dataset = test_dataset.map(prepare_dataset, num_proc=1)
 
         # max_mem = {0: "21GB"}
+        # 3. **NEW**: load config with SpecAugment turned on
+        config = WhisperConfig.from_pretrained(
+            PRETRAIN_MODEL,
+            apply_spec_augment=True
+        )
 
-        model = WhisperForConditionalGeneration.from_pretrained(PRETRAIN_MODEL)
+        # 4. Instantiate model with that config
+        model = WhisperForConditionalGeneration.from_pretrained(
+            PRETRAIN_MODEL,
+            config=config
+        )
+
+        # model = WhisperForConditionalGeneration.from_pretrained(PRETRAIN_MODEL)
         model.generation_config.language = MODEL_GENERATION_CONFIG_LANGUAGE
         model.generation_config.task = MODEL_TASK
 
