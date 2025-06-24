@@ -77,9 +77,15 @@ def compute_metrics(pred):
     pred_str = tokenizer.batch_decode(pred_ids, skip_special_tokens=True)
     label_str = tokenizer.batch_decode(label_ids, skip_special_tokens=True)
 
-    # sacrebleu wants flat list of refs
-    result = sacrebleu.compute(predictions=pred_str, references=label_str)
-    # result["score"] is already in percentage
+    # strip off extra whitespace
+    pred_str = [s.strip() for s in pred_str]
+    label_str = [s.strip() for s in label_str]
+
+    # sacrebleu wants List[List[str]] for references
+    references = [[ref] for ref in label_str]
+
+    result = sacrebleu.compute(predictions=pred_str, references=references)
+    # result["score"] is in percentage
     return {"bleu": result["score"]}
 
 from transformers import Seq2SeqTrainingArguments

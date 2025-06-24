@@ -1,6 +1,6 @@
-Finetune whisper with local dataset 
+Finetune whisper for translation task with local dataset 
 - unlike many tutorial online which shows dataset loaded from huggingface, this repo shows another alternative to use dataset from your own computer to finetune and inference
-- u can use trained whisper for speech to text recogntion , or even speech to text translation (which i found as emergent property of whisper, eg: finetune on pairs of English audio and Vietnamese sentence, let task (in finetune and inference) still be transcribe not translate)
+- there are little of finetune on speech translation task on whisper , so this tutorial is made 
 # preparation enivironment
 - you will need 1 environments for both finetune and inference 
 - in case inference cant be ran you can install a new env only for inference with instruction below 
@@ -12,7 +12,9 @@ window and linux
 python==3.9 
 pip install --upgrade pip
 pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
-pip install aiohttp==3.8.3q1
+pip install aiohttp==3.8.3
+pip install sacrebleu
+pip install fastapi uvicorn pydantic python-multipart
 ```
 also, on window, you need to install pytorch from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/ compatible for your cuda version
 
@@ -44,14 +46,26 @@ u need a pretrained whisper model from huggingface to finetune, after select one
 python 1_finetune_whisper.py
 ```
 - the checkpoint and logs will be saved in OUTPUT_DIR_NAME, specified in script ./1_finetune_whisper.py
+- if you want to test using speech dataset augmented by SpecAugment, run 
+```
+python 1_finetune_whisper_with_specaugment.py
+```
 # inference pretrained whisper
-change variable : laguage , original_audio in python 2_inference.py to your preference
+change variable : laguage , original_audio in python 2_inference.py to your liking
 run 
 ```
 python 2_inference_single.py
 ```
+# use FastAPI server 
+- i have made a demo of exposing API for serving speech translation, 
+each audio file sent to the server should be less than 30 second (due to whisper limitation)
 
-
+- change host value in config/config.ini to your machine IP address
+- the API is defined in routers/infer.py, you should check that file and change value in there to your liking 
+- to start server
+```
+python main.py
+```
 # other tutorial 
 - https://medium.com/@shridharpawar77/a-comprehensive-guide-for-custom-data-fine-tuning-with-the-whisper-model-60e4cbce736d
 - https://huggingface.co/blog/fine-tune-whisper
